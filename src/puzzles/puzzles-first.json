@@ -1,0 +1,216 @@
+[
+  {
+    "letters": "DENT",
+    "world": "Sunrise",
+    "stage": "Grow",
+    "words": ["DEN", "DENT", "END", "NET", "TEN", "TEND"],
+    "words_def": [1, 1, 1, 1, 1, 1],
+    "bonus_words": [],
+    "bonus_words_def": [],
+    "board_display": true,
+    "board": {
+      "width": 6,
+      "height": 5,
+      "rows": [
+        "·,·,E,·,·,N",
+        "T,E,N,·,·,E",
+        "E,·,D,E,N,T",
+        "N,·,·,·,·,·",
+        "D,E,N,·,·,·"
+      ]
+    },
+    "level": 7,
+    "solutions": {
+      "END": [
+        [2, 0],
+        [3, 0],
+        [4, 0]
+      ],
+      "NET": [
+        [0, 5],
+        [1, 5],
+        [2, 5]
+      ],
+      "TEND": [
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0]
+      ],
+      "TEN": [
+        [1, 0],
+        [1, 1],
+        [1, 2]
+      ],
+      "DENT": [
+        [2, 2],
+        [2, 3],
+        [2, 4],
+        [2, 5]
+      ],
+      "DEN": [
+        [4, 0],
+        [4, 1],
+        [4, 2]
+      ]
+    }
+  },
+  {
+    "letters": "SAVED",
+    "world": "Forest",
+    "stage": "Pine",
+    "words": ["ADS", "SAD", "SAVE", "SAVED", "VASE"],
+    "words_def": [1, 1, 1, 1, 1],
+    "bonus_words": ["DEV", "SEA"],
+    "bonus_words_def": [1, 1],
+    "board_display": true,
+    "board": {
+      "width": 5,
+      "height": 5,
+      "rows": ["S,A,V,E,·", "A,·,A,·,A", "V,·,S,A,D", "E,·,E,·,S", "D,·,·,·,·"]
+    },
+    "level": 13,
+    "solutions": {
+      "SAVED": [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+        [4, 0]
+      ],
+      "SAVE": [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+        [0, 3]
+      ],
+      "VASE": [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+        [3, 2]
+      ],
+      "ADS": [
+        [1, 4],
+        [2, 4],
+        [3, 4]
+      ],
+      "SAD": [
+        [2, 2],
+        [2, 3],
+        [2, 4]
+      ]
+    }
+  },
+  {
+    "letters": "LOVED",
+    "world": "Forest",
+    "stage": "Pine",
+    "words": ["DOE", "DOLE", "DOVE", "LED", "LOVE", "LOVED", "ODE", "OLD"],
+    "words_def": [1, 1, 1, 1, 1, 1, 1, 1],
+    "bonus_words": ["DEL", "DEV", "ELD", "LODE", "VELD", "VOLE"],
+    "bonus_words_def": [1, 1, 1, 1, 1, 1],
+    "board_display": true,
+    "board": {
+      "width": 7,
+      "height": 7,
+      "rows": [
+        "·,·,D,·,·,·,·",
+        "·,·,O,·,·,·,·",
+        "·,·,L,O,V,E,D",
+        "O,D,E,·,·,·,O",
+        "L,·,·,L,O,V,E",
+        "D,O,V,E,·,·,·",
+        "·,·,·,D,·,·,·"
+      ]
+    },
+    "level": 14,
+    "solutions": {
+      "DOLE": [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+        [3, 2]
+      ],
+      "LOVED": [
+        [2, 2],
+        [2, 3],
+        [2, 4],
+        [2, 5],
+        [2, 6]
+      ],
+      "DOE": [
+        [2, 6],
+        [3, 6],
+        [4, 6]
+      ],
+      "OLD": [
+        [3, 0],
+        [4, 0],
+        [5, 0]
+      ],
+      "ODE": [
+        [3, 0],
+        [3, 1],
+        [3, 2]
+      ],
+      "LED": [
+        [4, 3],
+        [5, 3],
+        [6, 3]
+      ],
+      "LOVE": [
+        [4, 3],
+        [4, 4],
+        [4, 5],
+        [4, 6]
+      ],
+      "DOVE": [
+        [5, 0],
+        [5, 1],
+        [5, 2],
+        [5, 3]
+      ]
+    }
+  },
+  {
+    "letters": "ENGIML",
+    "world": "Arctic",
+    "stage": "Polar",
+    "words": [
+      "ELM",
+      "GEL",
+      "GEM",
+      "GIN",
+      "GLEN",
+      "LEG",
+      "LIE",
+      "LIEN",
+      "LIME",
+      "LINE",
+      "MEG",
+      "MEN",
+      "MILE",
+      "MINE",
+      "MINGLE"
+    ],
+    "bonus_words": ["GEN", "LEI", "LIMN", "LING", "MIEN", "MIL", "NIL"],
+    "board": {
+      "width": 10,
+      "height": 9,
+      "rows": [
+        "·,·,L,·,M,I,N,G,L,E",
+        "·,·,I,·,I,·,·,·,I,·",
+        "·,·,M,E,N,·,·,G,E,M",
+        "L,I,E,·,E,·,·,·,N,·",
+        "E,·,·,·,·,·,·,·,·,·",
+        "G,E,L,·,·,·,·,·,·,L",
+        "·,L,·,·,M,·,·,G,·,I",
+        "·,M,I,L,E,·,·,I,·,N",
+        "·,·,·,·,G,L,E,N,·,E"
+      ]
+    },
+    "level": 4355,
+    "solutions": {}
+  }
+]

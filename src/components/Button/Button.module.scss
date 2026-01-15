@@ -1,0 +1,18 @@
+.button {
+  color: var(--text-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid
+    color-mix(in hsl, transparent 70%, var(--text-color-primary));
+  padding: 0.5rem 0.75rem;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--bg-color-95);
+    }
+  }
+}
