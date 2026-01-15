@@ -1,6 +1,6 @@
 .nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: stretch;
   gap: 1rem;
   padding: 1rem;
@@ -12,6 +12,6 @@
   background: #fff0;
 
   .logo {
-    margin-right: auto;
+    width: 48px;
   }
 }

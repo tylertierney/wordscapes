@@ -1,4 +1,30 @@
 .gamePage {
   display: flex;
   flex-direction: column;
+
+  .crosswordAndInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .gamePage {
+    .crosswordAndInputs {
+      flex-direction: row;
+      justify-content: space-around;
+      width: 700px;
+      align-self: center;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .gamePage {
+    .crosswordAndInputs {
+      width: 900px;
+    }
+  }
 }

@@ -20,6 +20,7 @@ export default function GamePage() {
 
     if (answers.bonusWords.includes(text) || answers.words.includes(text)) {
       toast('already found', { type: 'error' })
+      setCurrentText('')
       return
     }
 
@@ -40,27 +41,26 @@ export default function GamePage() {
 
   return (
     <div className={styles.gamePage}>
-      <p style={{ minHeight: '3rem' }}>{currentText}</p>
+      <div className={styles.crosswordAndInputs}>
+        <Crossword answers={answers} puzzle={puzzle}></Crossword>
 
-      <Crossword answers={answers} puzzle={puzzle}></Crossword>
-
-      <div style={{ alignSelf: 'center' }}>
-        <p>Letters:</p>
-        <p>{puzzle.letters.split('').map((char) => char + ' ')}</p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleAnswer(currentText)
-          }}
-        >
-          <input
-            value={currentText}
-            type="text"
-            onChange={(e) => setCurrentText(e.target.value)}
-          />
-        </form>
+        <div style={{ alignSelf: 'center' }}>
+          <p>{puzzle.letters.split('').map((char) => char + ' ')}</p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleAnswer(currentText)
+            }}
+          >
+            <input
+              value={currentText}
+              type="text"
+              onChange={(e) => setCurrentText(e.target.value)}
+            />
+          </form>
+          <LetterWheel letters={puzzle.letters} />
+        </div>
       </div>
-      <LetterWheel letters={puzzle.letters} />
     </div>
   )
 }

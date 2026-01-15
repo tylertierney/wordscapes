@@ -1,5 +1,5 @@
 import fs from 'fs'
-import puzzlesArr from './puzzles2.json' with {type: 'json'}
+import puzzlesArr from './src/puzzles/puzzles.json' with {type: 'json'}
 
 type Coords = [number, number]
 

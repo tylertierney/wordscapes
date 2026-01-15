@@ -1,19 +1,52 @@
 .letterWheel {
   position: relative;
   background-color: rgba(211, 211, 211, 0.169);
-  width: 180px;
-  height: 180px;
   border-radius: 100%;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: none;
+
+  // border: solid red 1px
 
   .letter {
     position: absolute;
     top: 50%;
     left: 50%;
     border-radius: 100%;
-    background-color: gray;
+    // background-color: gray;
+    background-color: transparent;
+    border: solid gray 1px;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
+    cursor: pointer;
+    z-index: 1;
   }
+
+  .svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    .connector {
+      fill: green;
+      stroke-width: 12;
+      stroke: green;
+      stroke-linecap: round;
+    }
+  }
+
+  // .connector {
+  //   // width: 4px;
+  //   // height: 20px;
+  //   // z-index: 1;
+  //   // position: absolute;
+  //   // background: green;
+
+  //   fill: green;
+  //   stroke-width: 6;
+  //   stroke: green;
+  // }
 }

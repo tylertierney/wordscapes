@@ -4,6 +4,7 @@ import styles from './Navbar.module.scss'
 import { moonIcon } from '../../svg/moon'
 import { sunIcon } from '../../svg/sun'
 import Button from '../Button/Button'
+import { wordscapesIcon } from '../../svg/wordscapes'
 
 export default function Navbar() {
   const [lightTheme, setLightTheme] = useTheme()
@@ -11,7 +12,7 @@ export default function Navbar() {
   return (
     <nav className={styles.nav}>
       <Link className={styles.logo} to="/">
-        Puzzles
+        {wordscapesIcon}
       </Link>
       <Button
         style={{ fill: 'var(--text-color-primary)' }}

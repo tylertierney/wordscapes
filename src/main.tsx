@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import puzzlesArr from './puzzles/puzzles.json'
 import type { Puzzle } from './models/models.ts'
 import GamePage from './components/GamePage/GamePage.tsx'
+import Home from './components/Home/Home.tsx'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>this is the home route</div>,
+        element: <Home />,
       },
       {
         path: 'puzzles/:puzzleIndex',
