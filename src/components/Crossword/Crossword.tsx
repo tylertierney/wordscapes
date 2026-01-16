@@ -1,13 +1,14 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import type { Answers, Coords, Puzzle } from '../../models/models'
 import styles from './Crossword.module.scss'
 
 type Props = {
   puzzle: Puzzle
   answers: Answers
+  style?: CSSProperties
 }
 
-export default function Crossword({ puzzle, answers }: Props) {
+export default function Crossword({ puzzle, answers, style = {} }: Props) {
   const { width, height } = puzzle.board
 
   const rows = puzzle.board.rows.map((row) => row.split(','))
@@ -27,7 +28,7 @@ export default function Crossword({ puzzle, answers }: Props) {
 
     for (let r = 0; r < max; r++) {
       for (let c = 0; c < max; c++) {
-        const key = r * width + c
+        const key = r * max + c
         const char: string | undefined = rows[r]?.[c]
         const solved =
           allSolvedCoords.findIndex(([y, x]) => y === r && x === c) > -1
@@ -41,6 +42,10 @@ export default function Crossword({ puzzle, answers }: Props) {
               `}
           >
             {solved ? char : ''}
+            {/* {char} */}
+            {/* <span className={styles.debug}>
+              
+            </span> */}
           </div>
         )
       }
@@ -55,6 +60,7 @@ export default function Crossword({ puzzle, answers }: Props) {
       style={{
         gridTemplateColumns: `repeat(${max}, 1fr)`,
         gridTemplateRows: `repeat(${max}, 1fr)`,
+        ...style,
       }}
     >
       {...buildBoard()}

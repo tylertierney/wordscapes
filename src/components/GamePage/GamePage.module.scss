@@ -2,16 +2,64 @@
   display: flex;
   flex-direction: column;
 
+  .levelAndLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 2rem 1rem 2rem 1rem;
+
+    .level {
+      font-family: monospace;
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .hoverableLink {
+        transition: 0.1s ease-in-out;
+        cursor: pointer;
+        text-decoration: none;
+        background-color: lightskyblue;
+        padding: 0 0.8rem;
+        color: black;
+        border-radius: 2px;
+        font-family: monospace;
+
+        @media (hover: hover) {
+          &:hover {
+            opacity: 0.8;
+            translate: 0 -2px;
+          }
+        }
+      }
+    }
+  }
+
   .crosswordAndInputs {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 1rem;
+    margin-bottom: 50vh;
   }
 }
 
 @media only screen and (min-width: 700px) {
   .gamePage {
+    .levelAndLinks {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .links {
+        gap: 1rem;
+      }
+    }
+
     .crosswordAndInputs {
       flex-direction: row;
       justify-content: space-around;
