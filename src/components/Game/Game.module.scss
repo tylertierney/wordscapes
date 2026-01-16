@@ -18,6 +18,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
 
       .hoverableLink {
         transition: 0.1s ease-in-out;
@@ -66,7 +68,7 @@
   }
 }
 
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 740px) {
   .game {
     .levelAndLinks {
       flex-direction: row;
@@ -81,8 +83,6 @@
     .crosswordAndInputs {
       flex-direction: row;
       justify-content: space-around;
-      width: 720px;
-      align-self: center;
     }
   }
 }
@@ -90,6 +90,8 @@
 @media only screen and (min-width: 900px) {
   .game {
     .crosswordAndInputs {
+      align-self: center;
+      justify-content: space-between;
       width: 900px;
     }
   }

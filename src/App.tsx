@@ -1,9 +1,10 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
     <>
+      <ScrollRestoration />
       <Outlet></Outlet>
       <ToastContainer
         position='top-center'
