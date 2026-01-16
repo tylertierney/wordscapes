@@ -137,3 +137,33 @@ export const isGameCompleted = (p: Puzzle, answers: Answers) => {
 export const isGameInProgress = (answers: Answers): boolean => {
   return Boolean(answers.words.length) || Boolean(answers.bonusWords.length)
 }
+
+export const getHint = (puzzle: Puzzle, answers: Answers): any => {
+  const revealedTiles = [
+    ...Object.entries(puzzle.solutions)
+      .filter(([word]) => answers.words.includes(word))
+      .flatMap((both) => both[1]),
+    ...answers.hintsUsed,
+  ]
+
+  const origRows = puzzle.board.rows
+  const rows = origRows.map((str) => str.split(','))
+
+  const remainingTiles: Coords[] = []
+
+  let r = 0
+  while (r < rows.length) {
+    let c = 0
+    while (c < rows[r].length) {
+      if (rows[r][c] !== '·') {
+        if (revealedTiles.findIndex(([x, y]) => x === r && y === c) < 0) {
+          remainingTiles.push([r, c])
+        }
+      }
+      c++
+    }
+    r++
+  }
+
+  return remainingTiles[~~(Math.random() * remainingTiles.length)]
+}

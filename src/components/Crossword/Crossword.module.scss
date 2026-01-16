@@ -22,6 +22,10 @@
       visibility: hidden;
     }
 
+    &.hint {
+      background-color: goldenrod;
+    }
+
     &.solved {
       background-color: var(--tile-solved-bg-color);
     }

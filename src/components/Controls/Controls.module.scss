@@ -3,15 +3,67 @@
   flex-direction: column;
 
   .letters {
-    height: 40px;
+    height: 32px;
     font-size: 32px;
     margin: 1rem 0;
     font-weight: bold;
     align-self: center;
+    z-index: 1;
   }
 
   .controlsBottom {
     display: flex;
     align-items: flex-end;
+    gap: 12px;
+
+    .smallButton {
+      border-radius: 100%;
+      height: 60px;
+      width: 60px;
+      fill: var(--text-color-primary);
+      color: var(--text-color-primary);
+      padding: 0;
+      background-color: var(--letter-wheel-bg);
+      border: solid 1px var(--bg-color-80);
+      cursor: pointer;
+      z-index: 1;
+      position: relative;
+
+      @media (hover: hover) {
+        &:not(:disabled) {
+          &:hover {
+            background-color: var(--letter-bg);
+            fill: var(--bg-color-app);
+            color: var(--bg-color-app);
+          }
+        }
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      .indicator {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -10px;
+        right: -10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: inherit;
+        color: inherit;
+        border: inherit;
+      }
+    }
+
+    .leftButtons {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 }

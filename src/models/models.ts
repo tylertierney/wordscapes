@@ -46,6 +46,7 @@ export type Coords = [number, number]
 export type Answers = {
   words: string[]
   bonusWords: string[]
+  hintsUsed: Coords[]
 }
 
 export type LoaderData = {

@@ -2,8 +2,8 @@ export const lightbulbIcon = (
   <svg
     aria-hidden='true'
     xmlns='http://www.w3.org/2000/svg'
-    width='1.5rem'
-    height='1.5rem'
+    width='29px'
+    height='29px'
     viewBox='0 0 24 24'
     data-testid='icon-forum'
   >

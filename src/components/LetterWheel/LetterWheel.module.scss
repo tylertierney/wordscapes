@@ -1,12 +1,13 @@
 .letterWheel {
   position: relative;
   background-color: var(--letter-wheel-bg);
-  box-shadow: var(--letter-wheel-shadow);
+  // box-shadow: var(--letter-wheel-shadow);
   border-radius: 100%;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   touch-action: none;
+  border: solid 1px var(--bg-color-80);
 
   .letter {
     position: absolute;

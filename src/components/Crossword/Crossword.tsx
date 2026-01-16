@@ -11,6 +11,10 @@ type Props = {
 export default function Crossword({ puzzle, answers, style = {} }: Props) {
   const { width, height } = puzzle.board
 
+  const diff = width - height
+
+  const emptyRowsAtEnd = Math.min(diff > -1 ? diff : 0, 0)
+
   const rows = puzzle.board.rows.map((row) => row.split(','))
 
   const max = Math.max(width, height)
@@ -32,6 +36,8 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
         const char: string | undefined = rows[r]?.[c]
         const solved =
           allSolvedCoords.findIndex(([y, x]) => y === r && x === c) > -1
+        const hint =
+          answers.hintsUsed.findIndex(([x, y]) => x === r && y === c) > -1
         res.push(
           <div
             key={key}
@@ -39,13 +45,16 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
               ${styles.tile} 
               ${!char || char === '·' ? styles.blank : ''}
               ${solved ? styles.solved : ''}
+              ${hint ? styles.hint : ''}
               `}
+            style={{
+              fontSize: width > 11 ? '16px' : '24px',
+            }}
           >
-            {solved ? char : ''}
-            {/* {char} */}
-            {/* <span className={styles.debug}>
-              
-            </span> */}
+            {solved || hint ? char : ''}
+            <span className={styles.debug}>
+              {r}, {c}
+            </span>
           </div>
         )
       }
@@ -60,6 +69,7 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
       style={{
         gridTemplateColumns: `repeat(${max}, 1fr)`,
         gridTemplateRows: `repeat(${max}, 1fr)`,
+        marginBottom: -1 * 50 * emptyRowsAtEnd + 'px',
         ...style,
       }}
     >

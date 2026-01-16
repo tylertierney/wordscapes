@@ -9,12 +9,16 @@ import {
   isGameInProgress,
 } from '../../utils/utils'
 import { type ReactNode } from 'react'
+import Navbar from '../Navbar/Navbar'
 
 const puzzles = (
   puzzlesArr as unknown as Puzzle[]
 ).toReversed() as unknown as Puzzle[]
 
-const getBadge = (p: Puzzle, answers?: Answers): ReactNode | null => {
+const getBadge = (
+  p: Puzzle,
+  answers: Answers | null | undefined
+): ReactNode | null => {
   if (!answers) return null
 
   if (isGameCompleted(p, answers)) {
@@ -36,22 +40,26 @@ const getBadge = (p: Puzzle, answers?: Answers): ReactNode | null => {
 
 export default function Home() {
   return (
-    <div className={styles.home}>
-      {puzzles.map((p) => {
-        return (
-          <Link
-            key={p.level}
-            to={`/puzzles/${p.level}`}
-            className={styles.level}
-          >
-            <span className={styles.levelLiteral}>Level {p.level}</span>
-            <div className={styles.arrowAndBadge}>
-              {getBadge(p, getAnswersFromLocalStorage(p))}
-              <span>&rarr;</span>
-            </div>
-          </Link>
-        )
-      })}
-    </div>
+    <>
+      <Navbar />
+      <div className={styles.home}>
+        {puzzles.map((p) => {
+          return (
+            <Link
+              id={String(p.level)}
+              key={p.level}
+              to={`/puzzles/${p.level}`}
+              className={styles.level}
+            >
+              <span className={styles.levelLiteral}>Level {p.level}</span>
+              <div className={styles.arrowAndBadge}>
+                {getBadge(p, getAnswersFromLocalStorage(p))}
+                <span>&rarr;</span>
+              </div>
+            </Link>
+          )
+        })}
+      </div>
+    </>
   )
 }
