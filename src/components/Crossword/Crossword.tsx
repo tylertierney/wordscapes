@@ -1,4 +1,10 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
 import type { Answers, Coords, Puzzle } from '../../models/models'
 import styles from './Crossword.module.scss'
 import type { AnimatedTilesDef } from '../Game/Game'
@@ -18,12 +24,13 @@ export default function Crossword({
 }: Props) {
   const [activeAnimations, setActiveAnimations] =
     useState<AnimatedTilesDef | null>()
+  const crosswordRef = useRef<HTMLDivElement | null>(null)
 
   const { width, height } = puzzle.board
 
   const diff = width - height
 
-  const emptyRowsAtEnd = Math.min(diff > -1 ? diff : 0, 0)
+  const emptyRowsAtEnd = Math.max(diff, 0)
 
   const rows = puzzle.board.rows.map((row) => row.split(','))
 
@@ -99,13 +106,26 @@ export default function Crossword({
     return res
   }
 
+  useEffect(() => {
+    const curr = crosswordRef.current
+    if (!curr) return
+
+    const tile = curr.firstElementChild
+
+    const rect = tile?.getBoundingClientRect()
+
+    const tileHeight = rect?.height || 0
+
+    curr.style.marginBottom = -1 * (tileHeight * emptyRowsAtEnd) + 'px'
+  }, [crosswordRef])
+
   return (
     <div
+      ref={crosswordRef}
       className={styles.crossword}
       style={{
         gridTemplateColumns: `repeat(${max}, 1fr)`,
         gridTemplateRows: `repeat(${max}, 1fr)`,
-        marginBottom: -1 * 50 * emptyRowsAtEnd + 'px',
         ...style,
       }}
     >

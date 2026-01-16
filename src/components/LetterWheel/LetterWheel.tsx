@@ -239,6 +239,13 @@ export default function LetterWheel({
               const target = e.target as HTMLDivElement
               target.releasePointerCapture(e.pointerId)
             }}
+            onClick={
+              navigator.maxTouchPoints === 0
+                ? (e) => {
+                    onPointerDown(e as unknown as PointerEvent, char, idx)
+                  }
+                : undefined
+            }
           >
             {char}
           </div>
