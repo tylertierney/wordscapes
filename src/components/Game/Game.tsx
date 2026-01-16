@@ -1,10 +1,12 @@
-import { toast } from 'react-toastify'
+import JSConfetti from 'js-confetti'
+const jsConfetti = new JSConfetti()
 import { Link } from 'react-router-dom'
-import type { Answers, Puzzle } from '../../models/models'
+import type { Answers, Coords, Puzzle } from '../../models/models'
 import styles from './Game.module.scss'
 import Crossword from '../Crossword/Crossword'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Controls from '../Controls/Controls'
+import { isGameCompleted } from '../../utils/utils'
 
 type Props = {
   puzzle: Puzzle
@@ -12,19 +14,21 @@ type Props = {
   puzzlesLength: number
 }
 
+export type AnimatedTilesDef = { name: string; coords: Coords[] }
+
 export default function Game({
   puzzle,
   answersFromLocal,
   puzzlesLength,
 }: Props) {
-  // const { puzzle, puzzlesLength, answersFromLocal } =
-  //   useLoaderData() as LoaderData
-
   const [answers, setAnswers] = useState<Answers>(
     answersFromLocal ?? {
       words: [],
       bonusWords: [],
     }
+  )
+  const [animatedTiles, setAnimatedTiles] = useState<AnimatedTilesDef | null>(
+    null
   )
 
   const { level } = puzzle
@@ -32,13 +36,16 @@ export default function Game({
   const handleAnswer = (text: string) => {
     text = text.toUpperCase().trim()
 
-    if (answers.bonusWords.includes(text) || answers.words.includes(text)) {
-      toast('already found', { type: 'error' })
+    if (answers.words.includes(text)) {
+      setAnimatedTiles({ name: 'pulse-purple', coords: puzzle.solutions[text] })
+      return
+    }
+
+    if (answers.bonusWords.includes(text)) {
       return
     }
 
     if (puzzle.bonusWords.includes(text)) {
-      toast('found bonus word')
       const newAnswers: Answers = {
         ...answers,
         bonusWords: [...answers.bonusWords, text],
@@ -51,6 +58,7 @@ export default function Game({
     }
 
     if (Object.keys(puzzle.solutions).includes(text)) {
+      setAnimatedTiles({ name: 'pulse-green', coords: puzzle.solutions[text] })
       const newAnswers: Answers = {
         ...answers,
         words: [...answers.words, text],
@@ -67,6 +75,17 @@ export default function Game({
     setAnswers({ bonusWords: [], words: [], hintsUsed: [] })
     localStorage.removeItem(`wordscapes-state-${level}`)
   }
+
+  const gameComplete = isGameCompleted(puzzle, answers)
+  const prevGameCompleteRef = useRef(gameComplete)
+
+  useEffect(() => {
+    if (!prevGameCompleteRef.current && gameComplete) {
+      jsConfetti.addConfetti()
+    }
+
+    prevGameCompleteRef.current = gameComplete
+  }, [gameComplete])
 
   return (
     <div className={styles.game}>
@@ -86,9 +105,14 @@ export default function Game({
         </div>
       </div>
       <div className={styles.crosswordAndInputs}>
-        <Crossword answers={answers} puzzle={puzzle}></Crossword>
+        <Crossword
+          answers={answers}
+          puzzle={puzzle}
+          animatedTiles={animatedTiles}
+        ></Crossword>
 
         <Controls
+          disabled={gameComplete}
           puzzle={puzzle}
           handleAnswer={handleAnswer}
           style={{

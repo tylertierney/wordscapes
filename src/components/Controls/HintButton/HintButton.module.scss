@@ -1,0 +1,52 @@
+.hintButton {
+  .indicator {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -10px;
+    right: -10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background-color: inherit;
+    color: inherit;
+    border: 2px solid var(--bg-color-80);
+  }
+
+  .hintDiff {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: green;
+    pointer-events: none;
+    user-select: none;
+
+    animation: hint-float 1200ms ease-out forwards;
+  }
+}
+
+@keyframes hint-float {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  80% {
+    opacity: 0.8;
+    scale: 1.6;
+    transform: translateY(-16px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.6) translateY(-16px);
+  }
+}

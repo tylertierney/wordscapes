@@ -11,16 +11,17 @@ import Button from '../Button/Button'
 import LetterWheel from '../LetterWheel/LetterWheel'
 import { getHint, shuffleArray } from '../../utils/utils'
 import { shuffleIcon } from '../../svg/shuffle.tsx'
-import { lightbulbIcon } from '../../svg/lightbulb.tsx'
 import { starIcon } from '../../svg/star.tsx'
 import Modal from '../Modal/Modal'
 import BonusWords from '../BonusWords/BonusWords.tsx'
+import HintButton from './HintButton/HintButton.tsx'
 
 type Props = {
   puzzle: Puzzle
   handleAnswer: (str: string) => void
   answers: Answers
   setAnswers: Dispatch<SetStateAction<Answers>>
+  disabled?: boolean
   style?: CSSProperties
 }
 
@@ -29,6 +30,7 @@ export default function Controls({
   handleAnswer,
   answers,
   setAnswers,
+  disabled = false,
   style = {},
 }: Props) {
   const [letters, setLetters] = useState('')
@@ -45,6 +47,10 @@ export default function Controls({
       ...answers,
       hintsUsed: [...answers.hintsUsed, hint],
     }
+    // localStorage.setItem(
+    //   `wordscapes-state-${puzzle.level}`,
+    //   JSON.stringify(newAnswers)
+    // )
     setAnswers(newAnswers)
   }
 
@@ -59,20 +65,16 @@ export default function Controls({
         <div className={styles.letters}>{currentText}</div>
         <div className={styles.controlsBottom}>
           <div className={styles.leftButtons}>
-            <Button
-              disabled={availableHints < 1}
+            <HintButton
+              availableHints={availableHints}
+              answers={answers}
+              handleHint={handleHint}
+              disabled={disabled}
               className={styles.smallButton}
-              onClick={() => handleHint(answers)}
-            >
-              {lightbulbIcon}
-              {availableHints > 0 ? (
-                <div className={styles.indicator}>{availableHints}</div>
-              ) : (
-                ''
-              )}
-            </Button>
+            />
             <Button
               className={styles.smallButton}
+              disabled={disabled}
               onClick={() =>
                 setLetters((prev) => shuffleArray(prev.split('')).join(''))
               }
@@ -84,6 +86,7 @@ export default function Controls({
             setCurrentText={setCurrentText}
             handleAnswer={handleAnswer}
             letters={letters}
+            disabled={disabled}
           />
           <Button
             className={styles.smallButton}

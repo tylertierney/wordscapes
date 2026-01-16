@@ -1,14 +1,24 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import type { Answers, Coords, Puzzle } from '../../models/models'
 import styles from './Crossword.module.scss'
+import type { AnimatedTilesDef } from '../Game/Game'
 
 type Props = {
   puzzle: Puzzle
   answers: Answers
+  animatedTiles: AnimatedTilesDef | null
   style?: CSSProperties
 }
 
-export default function Crossword({ puzzle, answers, style = {} }: Props) {
+export default function Crossword({
+  puzzle,
+  answers,
+  animatedTiles,
+  style = {},
+}: Props) {
+  const [activeAnimations, setActiveAnimations] =
+    useState<AnimatedTilesDef | null>()
+
   const { width, height } = puzzle.board
 
   const diff = width - height
@@ -27,6 +37,12 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
 
   const allSolvedCoords = Object.values(solved).flat()
 
+  useEffect(() => {
+    if (animatedTiles?.coords.length) {
+      setActiveAnimations(animatedTiles)
+    }
+  }, [animatedTiles])
+
   const buildBoard = () => {
     const res: ReactNode[] = []
 
@@ -38,6 +54,11 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
           allSolvedCoords.findIndex(([y, x]) => y === r && x === c) > -1
         const hint =
           answers.hintsUsed.findIndex(([x, y]) => x === r && y === c) > -1
+
+        const animationIndex =
+          activeAnimations?.coords.findIndex(([x, y]) => x === r && y === c) ??
+          -1
+
         res.push(
           <div
             key={key}
@@ -49,12 +70,27 @@ export default function Crossword({ puzzle, answers, style = {} }: Props) {
               `}
             style={{
               fontSize: width > 11 ? '16px' : '24px',
+              animationDelay:
+                animationIndex > -1 ? animationIndex * 0.1 + 's' : 'unset',
+              animationName: animationIndex > -1 ? activeAnimations?.name : '',
+              animationDuration: '900ms',
+              animationTimingFunction: 'ease-out',
+              animationFillMode: 'forwards',
+            }}
+            onAnimationEnd={() => {
+              setActiveAnimations((prev) => {
+                if (!prev) return null
+                return {
+                  ...prev,
+                  coords: [...prev.coords.slice(1)],
+                }
+              })
             }}
           >
             {solved || hint ? char : ''}
-            <span className={styles.debug}>
+            {/* <span className={styles.debug}>
               {r}, {c}
-            </span>
+            </span> */}
           </div>
         )
       }

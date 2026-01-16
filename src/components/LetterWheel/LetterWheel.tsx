@@ -46,15 +46,11 @@ const getLetterWidth = (count: number) => {
   return letterWidth
 }
 
-// const getLetterOffset = (count: number) => {
-//   let offset =
-// }
-
 type Props = {
   letters: string
-  //eslint-disable-next-line
   handleAnswer: (str: string) => void
   setCurrentText: Dispatch<SetStateAction<string>>
+  disabled?: boolean
 }
 
 type Connector = {
@@ -67,6 +63,7 @@ export default function LetterWheel({
   letters = '',
   handleAnswer,
   setCurrentText,
+  disabled,
 }: Props) {
   const [connectors, setConnectors] = useState<Connector[]>([])
   const [draggingConnector, setDraggingConnector] = useState<Coords | null>(
@@ -81,6 +78,8 @@ export default function LetterWheel({
   const strokeWidth = getStrokeWidth(arr.length)
 
   const onPointerMove = (e: PointerEvent) => {
+    if (disabled) return
+
     const { clientX, clientY } = e
     const target = e.currentTarget as HTMLDivElement
     const { left, top } = target.getBoundingClientRect()
@@ -94,6 +93,7 @@ export default function LetterWheel({
   }
 
   const onPointerDown = (e: PointerEvent, char: string, key: number) => {
+    if (disabled) return
     const target = e.target as HTMLDivElement
     const parent = target.parentElement as HTMLDivElement
     const parentRect = parent.getBoundingClientRect()
@@ -189,7 +189,10 @@ export default function LetterWheel({
 
   return (
     <div
-      className={styles.letterWheel}
+      aria-disabled={disabled}
+      className={`
+        ${styles.letterWheel} 
+        ${disabled ? styles.disabled : ''}`}
       style={{
         width: width + 'px',
         height: width + 'px',
@@ -206,17 +209,18 @@ export default function LetterWheel({
 
         const connected = connectors.findIndex(({ key }) => key === idx) > -1
 
-        const connectedStyles: CSSProperties = connected
-          ? {
-              backgroundColor: 'var(--letter-bg)',
-              color: 'var(--letter-color)',
-            }
-          : {}
+        const connectedStyles: CSSProperties =
+          connected && !disabled
+            ? {
+                backgroundColor: 'var(--letter-bg)',
+                color: 'var(--letter-color)',
+              }
+            : {}
 
         return (
           <div
             key={idx}
-            className={styles.letter}
+            className={`${styles.letter} ${disabled ? styles.disabled : ''}`}
             style={{
               width: letterWidth + 'px',
               height: letterWidth + 'px',

@@ -1,13 +1,17 @@
 .letterWheel {
   position: relative;
   background-color: var(--letter-wheel-bg);
-  // box-shadow: var(--letter-wheel-shadow);
   border-radius: 100%;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   touch-action: none;
   border: solid 1px var(--bg-color-80);
+
+  &.disabled {
+    opacity: 0.5;
+    touch-action: auto;
+  }
 
   .letter {
     position: absolute;
@@ -23,9 +27,11 @@
     font-size: 2rem;
 
     @media (hover: hover) {
-      &:hover {
-        background-color: var(--letter-bg);
-        color: var(--letter-color);
+      &:not(.disabled) {
+        &:hover {
+          background-color: var(--letter-bg);
+          color: var(--letter-color);
+        }
       }
     }
   }

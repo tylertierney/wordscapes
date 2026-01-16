@@ -28,7 +28,7 @@ const router = createBrowserRouter([
           const puzzles = puzzlesArr as unknown as Puzzle[]
           const asNumber = parseInt(params.puzzleIndex ?? '1', 10)
           const found = puzzles.find(({ level }) => level === asNumber) ?? null
-          console.log(getAnswersFromLocalStorage(found as Puzzle))
+          
           const res: LoaderData = {
             puzzle: found as Puzzle,
             puzzlesLength: puzzles.length,

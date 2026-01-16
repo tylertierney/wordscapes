@@ -129,3 +129,33 @@ body {
     flex-direction: column;
   }
 }
+
+@keyframes pulse-green {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.05;
+    background-color: green;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes pulse-purple {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.05;
+    background-color: rgb(112, 31, 112);
+  }
+
+  100% {
+    scale: 1;
+  }
+}
