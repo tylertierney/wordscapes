@@ -1,32 +1,23 @@
-import Button from '../Button/Button'
-import { shuffleIcon } from '../../svg/shuffle'
 import { toast } from 'react-toastify'
 import { Link, useLoaderData } from 'react-router-dom'
-import type { Answers, Puzzle } from '../../models/models'
+import type { Answers, Puzzle, LoaderData } from '../../models/models'
 import styles from './GamePage.module.scss'
 import Crossword from '../Crossword/Crossword'
-import { useState, useEffect } from 'react'
-import LetterWheel from '../LetterWheel/LetterWheel'
-import { shuffleArray } from '../../utils/utils'
+import { useState } from 'react'
+import Controls from '../Controls/Controls'
 
 export default function GamePage() {
-  const [answers, setAnswers] = useState<Answers>({
-    words: [],
-    bonusWords: [],
-  })
+  const { puzzle, puzzlesLength, answersFromLocal } =
+    useLoaderData() as LoaderData
 
-  const { puzzle, puzzlesLength } = useLoaderData() as {
-    puzzle: Puzzle
-    puzzlesLength: number
-  }
+  const [answers, setAnswers] = useState<Answers>(
+    answersFromLocal ?? {
+      words: [],
+      bonusWords: [],
+    }
+  )
 
   const { level } = puzzle
-
-  const [letters, setLetters] = useState<string>(puzzle.letters)
-
-  useEffect(() => {
-    setLetters(puzzle.letters)
-  }, [puzzle])
 
   const handleAnswer = (text: string) => {
     text = text.toUpperCase().trim()
@@ -38,17 +29,28 @@ export default function GamePage() {
 
     if (puzzle.bonusWords.includes(text)) {
       toast('found bonus word')
-      setAnswers((prev) => ({
-        ...prev,
-        bonusWords: [...prev.bonusWords, text],
-      }))
+      const newAnswers: Answers = {
+        ...answers,
+        bonusWords: [...answers.bonusWords, text],
+      }
+      setAnswers(newAnswers)
+      localStorage.setItem(
+        `wordscapes-state-${level}`,
+        JSON.stringify(newAnswers)
+      )
     }
 
     if (Object.keys(puzzle.solutions).includes(text)) {
-      setAnswers((prev) => ({ ...prev, words: [...prev.words, text] }))
+      const newAnswers: Answers = {
+        ...answers,
+        words: [...answers.words, text],
+      }
+      setAnswers(newAnswers)
+      localStorage.setItem(
+        `wordscapes-state-${level}`,
+        JSON.stringify(newAnswers)
+      )
     }
-
-    localStorage.setItem(`wordscapes-state-${level}`, JSON.stringify(answers))
   }
 
   return (
@@ -75,32 +77,13 @@ export default function GamePage() {
           style={{ marginBottom: '1rem' }}
         ></Crossword>
 
-        <div
+        <Controls
+          puzzle={puzzle}
+          handleAnswer={handleAnswer}
           style={{
-            display: 'flex',
             alignSelf: 'center',
-            alignItems: 'flex-end',
           }}
-        >
-          <Button
-            style={{
-              borderRadius: '100%',
-              height: '60px',
-              width: '60px',
-              fill: 'var(--text-color-primary)',
-              padding: '0',
-              border: 'none',
-              backgroundColor: 'var(--letter-wheel-bg)',
-              boxShadow: 'var(--letter-wheel-shadow-sm)',
-            }}
-            onClick={() =>
-              setLetters((prev) => shuffleArray(prev.split('')).join(''))
-            }
-          >
-            {shuffleIcon}
-          </Button>
-          <LetterWheel handleAnswer={handleAnswer} letters={letters} />
-        </div>
+        />
       </div>
     </div>
   )

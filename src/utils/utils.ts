@@ -1,4 +1,4 @@
-import type { Coords } from '../models/models'
+import type { Answers, Coords, Puzzle } from '../models/models'
 
 // export function buildSolutions(
 //   puzzle: ApiResponse['data']['_items']
@@ -113,4 +113,27 @@ export function shuffleArray<T>(array: T[]): T[] {
     i++
   }
   return arr
+}
+
+export const getAnswersFromLocalStorage = (p: Puzzle): Answers | null => {
+  const fromLocalStorage = localStorage.getItem(
+    `wordscapes-state-${String(p.level)}`
+  )
+  if (!fromLocalStorage) {
+    return null
+  }
+  return JSON.parse(fromLocalStorage) as Answers
+}
+
+export const isGameCompleted = (p: Puzzle, answers: Answers) => {
+  let res = [...Object.keys(p.solutions)]
+  for (const word of answers.words) {
+    res = res.filter((str) => str !== word)
+  }
+
+  return res.length === 0
+}
+
+export const isGameInProgress = (answers: Answers): boolean => {
+  return Boolean(answers.words.length) || Boolean(answers.bonusWords.length)
 }

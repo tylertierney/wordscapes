@@ -2,8 +2,10 @@ import {
   useEffect,
   useState,
   type CSSProperties,
+  type Dispatch,
   type PointerEvent,
   type ReactNode,
+  type SetStateAction,
 } from 'react'
 import styles from './LetterWheel.module.scss'
 import { type Coords } from '../../models/models.ts'
@@ -51,7 +53,8 @@ const getLetterWidth = (count: number) => {
 type Props = {
   letters: string
   //eslint-disable-next-line
-  handleAnswer: any
+  handleAnswer: (str: string) => void
+  setCurrentText: Dispatch<SetStateAction<string>>
 }
 
 type Connector = {
@@ -60,7 +63,11 @@ type Connector = {
   key: number
 }
 
-export default function LetterWheel({ letters = '', handleAnswer }: Props) {
+export default function LetterWheel({
+  letters = '',
+  handleAnswer,
+  setCurrentText,
+}: Props) {
   const [connectors, setConnectors] = useState<Connector[]>([])
   const [draggingConnector, setDraggingConnector] = useState<Coords | null>(
     null
@@ -175,6 +182,10 @@ export default function LetterWheel({ letters = '', handleAnswer }: Props) {
 
     return () => window.removeEventListener('pointerup', listener)
   }, [])
+
+  useEffect(() => {
+    setCurrentText(connectors.map((c) => c.char).join(''))
+  }, [connectors])
 
   return (
     <div

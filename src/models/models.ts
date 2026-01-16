@@ -47,3 +47,9 @@ export type Answers = {
   words: string[]
   bonusWords: string[]
 }
+
+export type LoaderData = {
+  puzzle: Puzzle
+  puzzlesLength: number
+  answersFromLocal: Answers
+}

@@ -4,8 +4,6 @@
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 
 body {
@@ -80,6 +78,17 @@ body {
   --letter-wheel-shadow: inset 20px 20px 60px #000, -20px -20px 60px #303037;
   --letter-wheel-shadow-sm: inset 10px 10px 30px #000, -10px -10px 20px #303037;
 
+  // badge
+  --badge-success-bg: rgba(0, 234, 108, 0.2);
+  --badge-success-color: rgb(204, 255, 221);
+  --badge-warning-bg: #ffcd0033;
+  --badge-warning-color: #fff5cc;
+  --badge-danger-bg: #ff494433;
+  --badge-danger-color: #ffdbda;
+  --badge-info-bg: #219dff33;
+  --badge-info-color: #cceaf7;
+  ////////
+
   background-color: var(--bg-color-app);
   color: var(--text-color-primary);
 
@@ -102,5 +111,21 @@ body {
       -20px -20px 60px #cacaca;
     --letter-wheel-shadow-sm: inset 10px 10px 20px #f1f1f1,
       -6px -10px 60px #cacaca;
+
+    // badge
+    --badge-success-bg: rgba(0, 183, 85, 0.1);
+    --badge-success-color: rgb(0, 115, 119);
+    --badge-warning-bg: #ffcd0045;
+    --badge-warning-color: #17355f;
+    --badge-danger-bg: #ff494433;
+    --badge-danger-color: #b60000;
+    --badge-info-bg: #219dff33;
+    --badge-info-color: #0041a5;
+    ///////
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
   }
 }

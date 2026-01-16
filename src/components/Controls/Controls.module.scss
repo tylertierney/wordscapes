@@ -1,0 +1,17 @@
+.controls {
+  display: flex;
+  flex-direction: column;
+
+  .letters {
+    height: 40px;
+    font-size: 32px;
+    margin: 1rem 0;
+    font-weight: bold;
+    align-self: center;
+  }
+
+  .controlsBottom {
+    display: flex;
+    align-items: flex-end;
+  }
+}
