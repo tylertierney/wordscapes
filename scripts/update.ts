@@ -1,7 +1,7 @@
 // import fs from 'fs'
-// import puzzlesArr from './puzzles.json' with { type: 'json' }
-// import { type ApiResponse, type Puzzle } from './src/models/models.ts'
-// import { buildSolutions } from './src/utils/utils.ts'
+// import puzzlesArr from '../puzzles.json' with { type: 'json' }
+// import { type ApiResponse, type Puzzle } from '../src/models/models.ts'
+// import { buildSolutions } from '../src/utils/utils.ts'
 
 // const puzzles = puzzlesArr as unknown as Puzzle[]
 
@@ -10,7 +10,7 @@
 //     const response = await fetch(
 //       'https://api.yourdictionary.com/wordfinder/v3/wordscapes?level=' + level
 //     )
-//     const res: ApiResponse = await response.json()
+//     const res: ApiResponse = await response.json() as ApiResponse
 
 //     if (res.status === 200 && res.data && !res.errors) {
 //       const { data } = res
@@ -30,7 +30,7 @@
 //         level,
 //       })
 
-//       fs.writeFileSync('puzzles2.json', JSON.stringify(puzzles, null, 2))
+//       // fs.writeFileSync('puzzles2.json', JSON.stringify(puzzles, null, 2))
 //     }
 //   } catch {
 //     console.error('Failed to fetch level:' + level)
@@ -38,19 +38,22 @@
 //   }
 // }
 
+
 // const getGames = async (start: number, end: number) => {
 //   let i = start
 //   while(i <= end) {
 //     await getGame(i)
+//     if(i%50 === 0) {
+//       console.log('At level ' + i)
+//     }
 //     i++
 //   }
 // }
 
-// getGames(1, 1000)
 
-// // const withSolutions = puzzles.map((p) => ({
-// //   ...p,
-// //   solutions: buildSolutions(Object.keys(p.solutions), p.board.rows),
-// // }))
+// await getGames(1001, 1100)
 
-// // fs.writeFileSync('puzzles2.json', JSON.stringify(withSolutions, null, 2))
+// console.log(puzzles.length)
+
+// fs.writeFileSync('puzzles.json', JSON.stringify(puzzles.toSorted((a, b) => a.level - b.level), null, 2))
+

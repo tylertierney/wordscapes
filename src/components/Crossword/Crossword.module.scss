@@ -6,6 +6,7 @@
   grid-column-gap: 4px;
   grid-row-gap: 4px;
   user-select: none;
+  pointer-events: none;
 
   .tile {
     background-color: var(--tile-bg-color);

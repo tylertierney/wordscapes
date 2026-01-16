@@ -145,18 +145,6 @@ export default function Game({
       <button className={styles.resetButton} onClick={reset}>
         Reset
       </button>
-      <button
-        className={styles.resetButton}
-        onClick={() => {
-          let i = 0
-          while (i < 2000) {
-            localStorage.removeItem(`wordscapes-state-${i}`)
-            i++
-          }
-        }}
-      >
-        Reset All
-      </button>
     </div>
   )
 }
