@@ -24,7 +24,6 @@ export default function HintButton({
 
   useEffect(() => {
     if (availableHints > prevHintsRef.current) {
-      // trigger animation
       setHintPulseKey(Date.now())
     }
     prevHintsRef.current = availableHints

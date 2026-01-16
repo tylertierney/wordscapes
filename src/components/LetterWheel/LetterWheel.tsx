@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useRef,
   useState,
   type CSSProperties,
   type Dispatch,
@@ -171,15 +172,20 @@ export default function LetterWheel({
     return res
   }
 
+  const onPointerUpRef = useRef<() => void>(() => {})
+
   useEffect(() => {
-    const listener = () => {
+    onPointerUpRef.current = () => {
       handleAnswer(connectors.map((c) => c.char).join(''))
       setConnectors([])
       setDraggingConnector(null)
     }
+  })
+
+  useEffect(() => {
+    const listener = () => onPointerUpRef.current()
 
     window.addEventListener('pointerup', listener)
-
     return () => window.removeEventListener('pointerup', listener)
   }, [])
 
@@ -196,11 +202,6 @@ export default function LetterWheel({
       style={{
         width: width + 'px',
         height: width + 'px',
-      }}
-      onPointerUp={() => {
-        handleAnswer(connectors.map((c) => c.char).join(''))
-        setConnectors([])
-        setDraggingConnector(null)
       }}
       onPointerMove={onPointerMove}
     >

@@ -167,3 +167,7 @@ export const getHint = (puzzle: Puzzle, answers: Answers): any => {
 
   return remainingTiles[~~(Math.random() * remainingTiles.length)]
 }
+
+export const hasThreeLetterWords = (puzzle: Puzzle): boolean => {
+  return Object.keys(puzzle.solutions).some((str) => str.length <= 3)
+}

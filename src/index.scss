@@ -89,6 +89,8 @@ body {
   --badge-info-color: #cceaf7;
   ////////
 
+  --error-red: rgb(255, 91, 91);
+
   background-color: var(--bg-color-app);
   color: var(--text-color-primary);
 
@@ -131,31 +133,29 @@ body {
 }
 
 @keyframes pulse-green {
-  0% {
-    scale: 1;
-  }
-
   50% {
-    scale: 1.05;
     background-color: green;
-  }
-
-  100% {
-    scale: 1;
   }
 }
 
 @keyframes pulse-purple {
+  50% {
+    background-color: rgb(112, 31, 112);
+  }
+}
+
+@keyframes fadeout {
   0% {
-    scale: 1;
+    transform: translateY(10px);
+    opacity: 0;
   }
 
-  50% {
-    scale: 1.05;
-    background-color: rgb(112, 31, 112);
+  40% {
+    opacity: 1;
   }
 
   100% {
-    scale: 1;
+    transform: translateY(-10px);
+    opacity: 0;
   }
 }

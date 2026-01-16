@@ -6,12 +6,17 @@ import styles from './Game.module.scss'
 import Crossword from '../Crossword/Crossword'
 import { useEffect, useRef, useState } from 'react'
 import Controls from '../Controls/Controls'
-import { isGameCompleted } from '../../utils/utils'
+import { hasThreeLetterWords, isGameCompleted } from '../../utils/utils'
 
 type Props = {
   puzzle: Puzzle
   answersFromLocal: Answers
   puzzlesLength: number
+}
+
+export type Message = {
+  type: 'alreadyFound' | 'alreadyFoundBonus' | 'no3Letter'
+  text: string
 }
 
 export type AnimatedTilesDef = { name: string; coords: Coords[] }
@@ -31,17 +36,28 @@ export default function Game({
     null
   )
 
+  const [message, setMessage] = useState<Message | null>(null)
+
   const { level } = puzzle
+
+  const allowThreeLetterWords = hasThreeLetterWords(puzzle)
 
   const handleAnswer = (text: string) => {
     text = text.toUpperCase().trim()
 
+    if (!allowThreeLetterWords && text.length === 3) {
+      setMessage({ type: 'no3Letter', text: 'No 3-letter words' })
+      return
+    }
+
     if (answers.words.includes(text)) {
+      setMessage({ type: 'alreadyFound', text: 'Already found' })
       setAnimatedTiles({ name: 'pulse-purple', coords: puzzle.solutions[text] })
       return
     }
 
     if (answers.bonusWords.includes(text)) {
+      setMessage({ type: 'alreadyFoundBonus', text: 'Already found' })
       return
     }
 
@@ -55,6 +71,7 @@ export default function Game({
         `wordscapes-state-${level}`,
         JSON.stringify(newAnswers)
       )
+      return
     }
 
     if (Object.keys(puzzle.solutions).includes(text)) {
@@ -68,6 +85,7 @@ export default function Game({
         `wordscapes-state-${level}`,
         JSON.stringify(newAnswers)
       )
+      return
     }
   }
 
@@ -115,6 +133,8 @@ export default function Game({
           disabled={gameComplete}
           puzzle={puzzle}
           handleAnswer={handleAnswer}
+          message={message}
+          setMessage={setMessage}
           style={{
             alignSelf: 'center',
           }}
