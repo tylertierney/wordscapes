@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.scss'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import puzzlesArr from '../puzzles.json' with {type: 'json'}
+import puzzlesArr from '../puzzles.json'
 import type { Puzzle, LoaderData } from './models/models.ts'
 import GamePage from './components/GamePage/GamePage.tsx'
 import Home from './components/Home/Home.tsx'
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
           const puzzles = puzzlesArr as unknown as Puzzle[]
           const asNumber = parseInt(params.puzzleIndex ?? '1', 10)
           const found = puzzles.find(({ level }) => level === asNumber) ?? null
-          
+
           const res: LoaderData = {
             puzzle: found as Puzzle,
             puzzlesLength: puzzles.length,
